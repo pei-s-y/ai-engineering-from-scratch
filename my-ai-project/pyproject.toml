@@ -1,0 +1,32 @@
+[project]
+name = "my-ai-project"
+version = "0.1.0"
+description = "Python environment and dependency management practice project"
+readme = "README.md"
+authors = [
+    { name = "pei", email = "shiyipei6@gmail.com" }
+]
+# 支持的 Python 版本范围；.python-version 当前选择 3.12。
+requires-python = ">=3.12"
+
+# 基础依赖：每次同步项目环境时都会安装。
+dependencies = [
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.3",
+]
+
+# 可选依赖（extras）：按需启用，组名可自行定义。
+# uv sync --extra torch：基础依赖 + PyTorch。
+# uv sync --extra torch --extra llm：基础依赖 + 两组可选依赖。
+[project.optional-dependencies]
+torch = ["torch>=2.14.0"]
+llm = ["anthropic>=0.39"]
+
+# 保留 uv init 生成的命令行入口。
+[project.scripts]
+my-ai-project = "my_ai_project:main"
+
+# 保留已有的构建后端；与 src/my_ai_project 目录配套。
+[build-system]
+requires = ["uv_build>=0.12.19,<0.13.0"]
+build-backend = "uv_build"
